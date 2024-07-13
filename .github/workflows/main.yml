@@ -30,11 +30,20 @@ jobs:
         username: ${{secrets.DOCKERHUB_USERNAME}}
         password: ${{secrets.DOCKERHUB_TOKEN}}
     
-    - name: Build docker image
-      run: docker build -t albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}} .
+    # - name: Build docker image
+    #   run: docker build -t albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}} .
 
-    - name: push image
-      run: |
-        docker push albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}}
-        docker tag albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}} albersonaaraujo/nlw-journey-devops:latest
-        docker push albersonaaraujo/nlw-journey-devops:latest
+    # - name: push image
+    #   run: |
+    #     docker push albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}}
+    #     docker tag albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}} albersonaaraujo/nlw-journey-devops:latest
+    #     docker push albersonaaraujo/nlw-journey-devops:latest
+
+    - name: docker build and push
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: |
+          albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}}
+          albersonaaraujo/nlw-journey-devops:latest
