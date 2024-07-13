@@ -33,4 +33,8 @@ jobs:
     - name: Build docker image
       run: docker build -t albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}} .
 
-    # enviar imagem
+    - name: push image
+      run: |
+        docker push albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}}
+        docker tag albersonaaraujo/nlw-journey-devops:${{steps.generate_sha.outputs.sha}} albersonaaraujo/nlw-journey-devops:latest
+        docker push albersonaaraujo/nlw-journey-devops:latest
