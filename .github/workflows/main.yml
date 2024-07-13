@@ -1,1 +1,20 @@
+# objetivo é enviar para o dockerhub
+name: CI
+# CI é gatilhada depois de uma ação
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push: 
+    name: 'build and push'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Build docker image
+      run: docker build -t albersonaaraujo/nlw-journey-devops:latest .
